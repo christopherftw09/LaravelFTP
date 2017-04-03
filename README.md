@@ -1,2 +1,1 @@
-# LaravelFTP
-Laravel FTP Client
+# Laravel FTP Client

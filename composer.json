@@ -1,0 +1,19 @@
+{
+	"name": "christopherftw09/laravel-ftp",
+	"authors": [
+		{
+			"name": "Chris Mooney",
+			"email": "christopherftw09@users.noreply.github.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"illuminate/support": "^5.0"
+	},
+	"minimum-stability": "stable",
+	"autoload": {
+		"psr-0": {
+			"LaravelFTP": "src/"
+		}
+	}
+}
