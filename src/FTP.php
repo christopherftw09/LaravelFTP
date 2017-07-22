@@ -2,6 +2,8 @@
 
 namespace LaravelFTP;
 
+use Exception;
+
 /**
  * FTP Class
  * Laravel FTP Class - Based on CodeIgniter's FTP Class.
@@ -31,7 +33,7 @@ class FTP {
 			ftp_pasv($this->connection, $passive);
 		}
 		catch(\Exception $e) {
-			throw new \Exception($e->getMessage());
+			throw new Exception($e->getMessage());
 		}
 		return true;
 	}
