@@ -42,7 +42,9 @@ class FTP {
 	 */
 	function __destruct()
 	{
-		return $this->_is_conn()?@ftp_close($this->connection):false;
+		if(!$this->_is_conn()) return false;
+		
+		return @ftp_close($this->connection);
 	}
 
 	/**
@@ -58,9 +60,10 @@ class FTP {
 	}
 
 	/**
-	 * Change directory
+	 * Change the directory
 	 *
 	 * @param	string	$path
+	 *
 	 * @return	bool
 	 */
 	public function change_dir($path)
@@ -70,10 +73,36 @@ class FTP {
 		return @ftp_chdir($this->connection, $path);
 	}
 
-	// create directory
+	/**
+	 * Create a directory
+	 *
+	 * @param	string	$path
+	 * @param	int		$permissions
+	 *
+	 * @return	bool
+	 */
+	public function mkdir($path, $permissions = NULL)
+	{
+		if($this->_is_conn()) return false;
+
+		if(!@ftp_mkdir($this->connection, $path)) return false;
+
+		if(isset($permissions)) $this->chmod($path, (int)$permissions);
+
+		return true;
+	}
+
 	// upload
 	// download
 
+	/**
+	 * Renames a file or directory
+	 *
+	 * @param	string	$oldname
+	 * @param	string	$newname
+	 *
+	 * @return	bool
+	 */
 	public function rename($oldname, $newname)
 	{
 		if(!$this->_is_conn()) return false;
@@ -87,6 +116,7 @@ class FTP {
 	 * Delete a file
 	 *
 	 * @param	string	$file
+	 *
 	 * @return	bool
 	 */
 	public function delete_file($file)
@@ -103,6 +133,7 @@ class FTP {
 	 * contained within it.
 	 *
 	 * @param	string	$filepath
+	 *
 	 * @return	bool
 	 */
 	public function delete_dir($filepath)
@@ -129,6 +160,7 @@ class FTP {
 	 *
 	 * @param	string	$path	File path
 	 * @param	int		$perm	Permissions
+	 *
 	 * @return	bool
 	 */
 	public function chmod($path, $perm)
@@ -142,6 +174,7 @@ class FTP {
 	 * Listing the files in a specified directory.
 	 *
 	 * @param	string	$path
+	 *
 	 * @return	Illuminate\Support\Collection Instance
 	 */
 	public function list_files($path)
