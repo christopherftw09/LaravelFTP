@@ -73,11 +73,28 @@ class FTP {
 	// create directory
 	// upload
 	// download
-	// rename
-	// move($old_file, $new_file)
-	// delete_file($filepath)
-	// delete_dir($filepath)
-	// chmod($path, $perm)
+
+	public function rename($oldname, $newname)
+	{
+		if(!$this->_is_conn()) return false;
+
+		return @ftp_rename($this->connection, $oldfile, $newfile);
+	}
+
+	// move($old, $new)
+
+	/**
+	 * Delete a file
+	 *
+	 * @param	string	$file
+	 * @return	bool
+	 */
+	public function delete_file($file)
+	{
+		if(!$this->_is_conn()) return false;
+
+		return @ftp_delete($this->connection, $filepath);
+	}
 
 	/**
 	 * Delete Directory
@@ -95,26 +112,37 @@ class FTP {
 		// Add a trailing slash to the file path if needed
 		$filepath = preg_replace('/(.+?)\/*$/', '\\1/', $filepath);
 
-		$list = $this->list_files($filepath);
-		if($list->isNotEmpty())
+		$files = $this->list_files($filepath);
+		if($files->isNotEmpty())
 		{
-			foreach($list as $file)
+			foreach($files as $file)
 			{
 				// If we can't delete then it's probably an directory, so we will recursively call delete_dir().
-				if(!preg_match('#/\.\.?$#', $file) && !@ftp_delete($this->connection, $file))
-				{
-					$this->delete_dir($file);
-				}
+				if(!preg_match('#/\.\.?$#', $file) && !@ftp_delete($this->connection, $file)) $this->delete_dir($file);
 			}
 		}
 		return @ftp_rmdir($this->connection, $filepath);
 	}
 
 	/**
+	 * Set file permissions
+	 *
+	 * @param	string	$path	File path
+	 * @param	int		$perm	Permissions
+	 * @return	bool
+	 */
+	public function chmod($path, $perm)
+	{
+		if(!$this->_is_conn()) return false;
+
+		return @ftp_chmod($this->connection, $perm, $path);
+	}
+
+	/**
 	 * Listing the files in a specified directory.
 	 *
 	 * @param	string	$path
-	 * @return	array
+	 * @return	Illuminate\Support\Collection Instance
 	 */
 	public function list_files($path)
 	{
@@ -122,10 +150,9 @@ class FTP {
 	}
 
 	// public function mirror($locpath, $rempath)
-	// protected function _getext($filename)
-	// protected function _settype($ext)
 
-	// protected function _error($line)
+	// protected function _getext($file)
+	// protected function _settype($ext)
 
 	// function read_file($filepath)
 	// function save_file($filepath, $content)
