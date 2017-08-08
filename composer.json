@@ -1,5 +1,7 @@
 {
 	"name": "christopherftw09/laravel-ftp",
+	"keywords": ["ftp","ftp-client","laravel","laravel-5-package","php","composer"],
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Chris Mooney",
@@ -10,7 +12,7 @@
 		"php": ">=5.4.0",
 		"illuminate/support": "^5.0"
 	},
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"autoload": {
 		"psr-0": {
 			"LaravelFTP": "src/"
