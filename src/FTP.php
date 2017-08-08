@@ -25,7 +25,7 @@ class FTP {
 	{
 		// Connecting to the ftp server.
 		$this->connection = @ftp_connect($hostname, $port);
-		if($this->connection === false) throw new Exception('Unable to establish an connection with the FTP server.');
+		if(!$this->_is_conn()) throw new Exception('Unable to establish an connection with the FTP server.');
 
 		// Logging into ftp server.
 		if(!@ftp_login($this->connection, $username, $password)) throw new Exception('Login failed.');
@@ -130,11 +130,13 @@ class FTP {
 	// function read_file($filepath)
 	// function save_file($filepath, $content)
 
-	function size($file) {
+	function size($file)
+	{
 		return @ftp_size($this->connection, $file);
 	}
 
-	function time($file) {
+	function time($file)
+	{
 		return @ftp_mdtm($this->connection, $file);
 	}
 }
