@@ -8,7 +8,7 @@ use Exception;
  * Laravel FTP Class
  * Based on CodeIgniter's FTP Class.
  *
- * @license	http://opensource.org/licenses/MIT	MIT License
+ * @license	https://choosealicense.com/licenses/mit/	MIT License
  */
 class FTP {
 	protected $mode;
