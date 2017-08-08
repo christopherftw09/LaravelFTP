@@ -36,6 +36,16 @@ class FTP {
 	}
 
 	/**
+	 * Class Deconstructor
+	 *
+	 * @return	bool
+	 */
+	function __destruct()
+	{
+		return $this->_is_conn()?@ftp_close($this->conn_id):false;
+	}
+
+	/**
 	 * Connection Checker
 	 *
 	 * Validates the ftp connection.
@@ -115,10 +125,17 @@ class FTP {
 	// protected function _getext($filename)
 	// protected function _settype($ext)
 
-	// public function close()
 	// protected function _error($line)
 
 	// function read_file($filepath)
 	// function save_file($filepath, $content)
+
+	function size($file) {
+		return @ftp_size($this->connection, $file);
+	}
+
+	function time($file) {
+		return @ftp_mdtm($this->connection, $file);
+	}
 }
 ?>
