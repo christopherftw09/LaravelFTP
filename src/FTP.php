@@ -42,7 +42,7 @@ class FTP {
 	 */
 	function __destruct()
 	{
-		return $this->_is_conn()?@ftp_close($this->conn_id):false;
+		return $this->_is_conn()?@ftp_close($this->connection):false;
 	}
 
 	/**
