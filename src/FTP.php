@@ -24,7 +24,7 @@ class FTP {
 	{
 		// Connecting to the ftp server.
 		$this->connection = @ftp_connect($hostname, $port);
-		if(!$this->_is_conn()) throw new Exception('Unable to establish an connection with the FTP server.');
+		if(!$this->_is_conn()) throw new Exception('Unable to establish a connection with the FTP server.');
 
 		// Logging into ftp server.
 		if(!@ftp_login($this->connection, $username, $password)) throw new Exception('Login failed.');
