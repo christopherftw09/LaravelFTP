@@ -43,7 +43,7 @@ class FTP {
 	function __destruct()
 	{
 		if(!$this->_is_conn()) return false;
-		
+
 		return @ftp_close($this->connection);
 	}
 
@@ -179,7 +179,9 @@ class FTP {
 	 */
 	public function list_files($path)
 	{
-		return $this->_is_conn()?collect(ftp_nlist($this->connection, $path)):false;
+		if(!$this->_is_conn()) return false;
+
+		return collect(ftp_nlist($this->connection, $path));
 	}
 
 	// public function mirror($locpath, $rempath)
