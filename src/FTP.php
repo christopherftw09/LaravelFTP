@@ -80,7 +80,7 @@ class FTP {
 	 */
 	public function mkdir($path, $permissions = NULL)
 	{
-		if($this->_is_conn()) return false;
+		if(!$this->_is_conn()) return false;
 
 		if(!@ftp_mkdir($this->connection, $path)) return false;
 
@@ -100,11 +100,11 @@ class FTP {
 	 *
 	 * @return	bool
 	 */
-	public function rename($oldname, $newname)
+	public function rename($old_name, $new_name)
 	{
 		if(!$this->_is_conn()) return false;
 
-		return @ftp_rename($this->connection, $oldfile, $newfile);
+		return @ftp_rename($this->connection, $old_name, $new_name);
 	}
 
 	// move($old, $new)
@@ -113,14 +113,13 @@ class FTP {
 	 * Delete a file
 	 *
 	 * @param	string	$file
-	 *
 	 * @return	bool
 	 */
 	public function delete_file($file)
 	{
 		if(!$this->_is_conn()) return false;
 
-		return @ftp_delete($this->connection, $filepath);
+		return @ftp_delete($this->connection, $file);
 	}
 
 	/**
