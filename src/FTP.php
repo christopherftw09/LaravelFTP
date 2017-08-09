@@ -18,7 +18,6 @@ class FTP {
 	 * Class Constructor
 	 *
 	 * @throws	Exception
-	 *
 	 * @return	bool
 	 */
 	public function __construct($hostname, $username, $password, $port = 21, $passive = true)
@@ -63,7 +62,6 @@ class FTP {
 	 * Change the directory
 	 *
 	 * @param	string	$path
-	 *
 	 * @return	bool
 	 */
 	public function change_dir($path)
@@ -77,8 +75,7 @@ class FTP {
 	 * Create a directory
 	 *
 	 * @param	string	$path
-	 * @param	int		$permissions
-	 *
+	 * @param	int	$permissions
 	 * @return	bool
 	 */
 	public function mkdir($path, $permissions = NULL)
@@ -133,7 +130,6 @@ class FTP {
 	 * contained within it.
 	 *
 	 * @param	string	$filepath
-	 *
 	 * @return	bool
 	 */
 	public function delete_dir($filepath)
@@ -159,8 +155,7 @@ class FTP {
 	 * Set file permissions
 	 *
 	 * @param	string	$path	File path
-	 * @param	int		$perm	Permissions
-	 *
+	 * @param	int	$perm	Permissions
 	 * @return	bool
 	 */
 	public function chmod($path, $perm)
@@ -174,7 +169,6 @@ class FTP {
 	 * Listing the files in a specified directory.
 	 *
 	 * @param	string	$path
-	 *
 	 * @return	Illuminate\Support\Collection Instance
 	 */
 	public function list_files($path)
