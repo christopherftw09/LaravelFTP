@@ -168,11 +168,14 @@ class FTP {
 	 * Listing the files in a specified directory.
 	 *
 	 * @param	string	$path
+	 * @param	bool	$detailed
 	 * @return	Illuminate\Support\Collection Instance
 	 */
-	public function list_files($path)
+	public function list_files($path, $detailed = false)
 	{
 		if(!$this->_is_conn()) return false;
+
+		if($detailed) return collect(ftp_rawlist($this->connection, $path));
 
 		return collect(ftp_nlist($this->connection, $path));
 	}
