@@ -182,11 +182,47 @@ class FTP {
 
 	// public function mirror($locpath, $rempath)
 
+	/**
+	 * Read a file on the remote server. (Based on the 'get' function provided by Cannonb4ll/LaravelFtp)
+	 *
+	 * @param	string	$file
+	 * @throws	Exception
+	 * @return	bool|string
+	 */
+	public function read_file($file)
+	{
+		if(!$this->_is_conn()) return false;
+
+		if($this->size($file) > (2*(1024*1024))) throw new Exception("The requested file is too big to read.");  // 2 MB File Limit
+
+		$temp = fopen('php://temp', 'r+');
+		if(!@ftp_fget($this->connection, $temp, $file, FTP_ASCII, 0)) return false;
+
+		// Read what we have written and return it.
+		rewind($temp);
+		return stream_get_contents($temp);
+	}
+
+	/**
+	 * Save to a file on the remote server. (Based on the 'save' function provided by Cannonb4ll/LaravelFtp)
+	 *
+	 * @param	string	$file
+	 * @throws	Exception
+	 * @return	bool
+	 */
+	public function save_file($file, $content)
+	{
+		if(!$this->_is_conn()) return false;
+
+		$temp = fopen('php://temp', 'r+');
+		fwrite($temp, $content);
+		rewind($temp);
+
+		return @ftp_fput($this->connection, $file, $temp, FTP_ASCII, 0);
+	}
+
 	// protected function _getext($file)
 	// protected function _settype($ext)
-
-	// function read_file($filepath)
-	// function save_file($filepath, $content)
 
 	function size($file)
 	{
