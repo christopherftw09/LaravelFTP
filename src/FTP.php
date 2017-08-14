@@ -95,8 +95,8 @@ class FTP {
 	/**
 	 * Renames a file or directory
 	 *
-	 * @param	string	$oldname
-	 * @param	string	$newname
+	 * @param	string	$old_name
+	 * @param	string	$new_name
 	 *
 	 * @return	bool
 	 */
@@ -108,6 +108,21 @@ class FTP {
 	}
 
 	// move($old, $new)
+
+	/**
+	 * Create a new file
+	 *
+	 * @param	string	$file
+	 * @return	bool
+	 */
+	public function create_file($file)
+	{
+		if(!$this->_is_conn()) return false;
+
+		if($this->size($file) !== -1) return false; // checking to see if the file already exists.
+
+		return @ftp_fput($this->connection, $file, tmpfile(), FTP_ASCII);
+	}
 
 	/**
 	 * Delete a file
@@ -128,17 +143,17 @@ class FTP {
 	 * deletes a folder and then recursively deletes everything (including sub-folders)
 	 * contained within it.
 	 *
-	 * @param	string	$filepath
+	 * @param	string	$path
 	 * @return	bool
 	 */
-	public function delete_dir($filepath)
+	public function delete_dir($path)
 	{
 		if(!$this->_is_conn()) return false;
 
 		// Add a trailing slash to the file path if needed
-		$filepath = preg_replace('/(.+?)\/*$/', '\\1/', $filepath);
+		$filepath = preg_replace('/(.+?)\/*$/', '\\1/', $path);
 
-		$files = $this->list_files($filepath);
+		$files = $this->list_files($path);
 		if($files->isNotEmpty())
 		{
 			foreach($files as $file)
@@ -147,7 +162,7 @@ class FTP {
 				if(!preg_match('#/\.\.?$#', $file) && !@ftp_delete($this->connection, $file)) $this->delete_dir($file);
 			}
 		}
-		return @ftp_rmdir($this->connection, $filepath);
+		return @ftp_rmdir($this->connection, $path);
 	}
 
 	/**
