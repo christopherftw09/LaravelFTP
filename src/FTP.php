@@ -89,8 +89,39 @@ class FTP {
 		return true;
 	}
 
-	// upload
-	// download
+	/**
+	 * Uploads a file to a remote server
+	 *
+	 * @param	string	$remote_path
+	 * @param	string	$local_path
+	 *
+	 * @return	bool
+	 */
+	public function upload($local_file, $remote_path)
+	{
+		if(!$this->_is_conn()) return false;
+
+		if(!file_exists($local_file)) return false;
+
+		return @ftp_put($this->connection, $remote_path, $local_file, FTP_BINARY);
+	}
+
+	/**
+	 * Downloads a file from a remote server.
+	 *
+	 * @param	string	$remote_path
+	 * @param	string	$local_path
+	 *
+	 * @return	bool
+	 */
+	public function download($remote_path, $local_path)
+	{
+		if(!$this->_is_conn()) return false;
+
+		if($this->size($remote_file) === -1) return false;
+
+		return @ftp_get($this->connection, $local_path, $remote_path, FTP_BINARY, 0);
+	}
 
 	/**
 	 * Renames a file or directory
