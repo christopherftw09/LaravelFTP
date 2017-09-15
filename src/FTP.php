@@ -118,7 +118,7 @@ class FTP {
 	{
 		if(!$this->_is_conn()) return false;
 
-		if($this->size($remote_file) === -1) return false;
+		if($this->size($remote_path) === -1) return false;
 
 		return @ftp_get($this->connection, $local_path, $remote_path, FTP_BINARY, 0);
 	}
