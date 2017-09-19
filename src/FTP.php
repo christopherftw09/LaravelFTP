@@ -11,7 +11,6 @@ use Exception;
  * @license	https://choosealicense.com/licenses/mit/	MIT License
  */
 class FTP {
-	protected $mode;
 	protected $connection;
 
 	/**
