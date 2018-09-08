@@ -1,22 +1,23 @@
 {
-	"name": "christopherftw09/laravel-ftp",
-	"keywords": ["ftp","ftp-client","laravel","laravel-5-package","php","composer"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Chris Mooney",
-			"email": "christopherftw09@users.noreply.github.com"
-		}
-	],
-	"require": {
-		"php": ">=5.4.0",
-		"ext-ftp": "*",
-		"illuminate/support": "^5.0"
-	},
-	"minimum-stability": "dev",
-	"autoload": {
-		"psr-0": {
-			"LaravelFTP": "src/"
-		}
-	}
+    "name": "christopherftw09/laravel-ftp",
+    "keywords": ["php", "laravel", "composer", "ftp", "ftp-client"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Mooney",
+            "email": "christopherftw09@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "ext-ftp": "*",
+        "illuminate/support": "^5.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-0": {
+            "LaravelFTP": "src/"
+        }
+    }
 }
